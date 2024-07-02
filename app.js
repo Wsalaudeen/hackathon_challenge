@@ -1,10 +1,55 @@
 const collapseTrigger = document.querySelector("#collapse_icon");
 const paymentBar = document.querySelector("#payment_bar");
-function app() {
-  const menuTrigger = document.querySelector("#profile_menu");
-  const menu = document.querySelector("#dropdown_menu_content");
-  const allMenuItems = menu.querySelectorAll('[role="menuitem"]');
+const menuTrigger = document.querySelector("#profile_menu");
+const menu = document.querySelector("#dropdown_menu_content");
+const allMenuItems = menu.querySelectorAll('[role="menuitem"]');
+// last part of the project.
+const notCompletedIcon = document.querySelectorAll("#not-completed-icon");
+const completedIcon = document.querySelectorAll("#completed-icon");
+const loadingSpinnerIcon = document.querySelectorAll("#loading-spinner-icon");
+const collapseContents = document.querySelector("#collapse-content");
+const boxContainer = document.querySelector("#box-container");
+const uncollapseContents = document.querySelector("#uncollapse-content");
+const toggleContainer = document.querySelectorAll(".toggle-container");
 
+
+
+collapseContents.addEventListener("click", function () {
+  boxContainer.classList.add("box-container-inactive");
+  collapseContents.style.display = "none";
+  uncollapseContents.style.display = "block";
+});
+
+uncollapseContents.addEventListener("click", function () {
+  boxContainer.classList.remove("box-container-inactive");
+  uncollapseContents.style.display = "none";
+  collapseContents.style.display = "block";
+});
+
+
+function SpiningIcon() {}
+//To load the spinning icon from uncomplete to completed
+notCompletedIcon.forEach(function (notCompletedIcon, index) {
+  notCompletedIcon.addEventListener("click", function (event) {
+    loadingSpinnerIcon[index].style.display = "block";
+    event.currentTarget.style.display = "none";
+    setTimeout(function () {
+      loadingSpinnerIcon[index].style.display = "none";
+      completedIcon[index].style.display = "block";
+    }, 1500);
+  });
+});
+
+//To load the spinning icon from completed to uncomplete
+completedIcon.forEach(function (completedIcon, index) {
+  completedIcon.addEventListener("click", function (event) {
+    event.currentTarget.style.display = "none";
+    notCompletedIcon[index].style.display = "block";
+  });
+});
+
+
+function app() {
   function handleMenuEscapeKeypress(event) {
     if (event.key === "Escape") {
       toggleMenu();
